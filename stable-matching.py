@@ -4,8 +4,8 @@ import sys
 
 print("------")
 print("Gale-Shapely Algorithm")
-print("Premise: \n\tThere exists a stable matching for every set of prefence lists between men and women.")
-print("(simplified for marriages, but also applies to more general case of companies and applicants, where each company can accept multiple applicants, and each applicant goes to one company)");
+print("Premise: \n\tThere exists a stable matching for every set\nof prefence lists between men and women.")
+print("(simplified for marriages, but also applies to more general\ncase of companies and applicants, where each company can\naccept multiple applicants, and each applicant goes to one company)");
 print("Given:\n\tpreferences between n women and n men")
 print("Produce:")
 print("\t- Assignment of women and men such that a stable matching")
@@ -92,6 +92,11 @@ def match_stable(n, man_preference, woman_preference):
 process input files, run test cases
 -------------------------------
 '''
+# parse 	preference list for some group
+# str:		string at which to stop 
+# i:		line in content to start reading at
+# content: 	an array of strings to read in
+# arr:		array of preferences, where the jth element holds a list of j's preferences
 def pref_helper(str, i, content, arr):
 	temp = []
 	i += 1
@@ -102,6 +107,9 @@ def pref_helper(str, i, content, arr):
 		i += 1
 	return i
 
+# store important information for each test case
+# keeps track of every person's preference lists, by gender,
+#	the expected results according to the women, and the number of pairs
 class test_case:
 	def __init__(self, i, content):
 		self.man_preference = []
@@ -119,6 +127,7 @@ class test_case:
 		result += "\nExpected Results\n" + str(self.woman_results)
 		return result
 
+# build a collection of test cases indicated by a file
 def build_test_cases(file_name):
 	test_cases = []
 	f = open(file_name, "r")
@@ -134,6 +143,9 @@ def build_test_cases(file_name):
 	f.close()
 	return test_cases
 
+# if any test case files specified, converts them into readable format
+# otherwise, runs default test file
+# executes algorithm on test cases
 def main(argv):
 	test_cases = []
 	if len(argv) < 2:

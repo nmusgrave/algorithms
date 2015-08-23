@@ -1,0 +1,54 @@
+// Each job row indicates a job's weight, start, and end
+// Each result row indicates weight, start, and end time of each
+// Jobs must be ordered by nondecreasing finish time
+
+Jobs
+1 0 1
+1 1 2
+1 2 3
+Expected Results
+1 0 1
+1 1 2
+1 2 3
+
+Jobs
+1 0 2
+3 1 4
+1 3 5
+Expected Results
+3 1 4
+
+Jobs
+1 0 2
+1 1 4
+1 3 5
+Expected Results
+1 0 2
+1 3 5
+
+Jobs
+2 0 3
+4 1 5
+4 3 7
+7 2 8
+2 6 9
+1 7 10
+Expected Results
+2 0 3
+4 3 7
+1 7 10
+
+Jobs
+1 0 2
+1 1 3
+1 2 4
+1 3 5
+1 4 6
+1 5 7
+1 6 8
+Expected Results
+1 0 2
+1 2 4
+1 4 6
+1 6 8
+
