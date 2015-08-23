@@ -2,20 +2,20 @@
 from collections import deque
 import sys
 
-print("------")
-print("Gale-Shapely Algorithm")
-print("Premise: \n\tThere exists a stable matching for every set\nof prefence lists between men and women.")
-print("(simplified for marriages, but also applies to more general\ncase of companies and applicants, where each company can\naccept multiple applicants, and each applicant goes to one company)");
-print("Given:\n\tpreferences between n women and n men")
-print("Produce:")
-print("\t- Assignment of women and men such that a stable matching")
-print("\tis formed. ")
-print("\t- To be a stable matching, no pair can prefer each other to ")
-print("\tcurrent partners.")
+print('------')
+print('Gale-Shapely Algorithm')
+print('Premise: \n\tThere exists a stable matching for every set\nof prefence lists between men and women.')
+print('(simplified for marriages, but also applies to more general\ncase of companies and applicants, where each company can\naccept multiple applicants, and each applicant goes to one company)');
+print('Given:\n\tpreferences between n women and n men')
+print('Produce:')
+print('\t- Assignment of women and men such that a stable matching')
+print('\tis formed. ')
+print('\t- To be a stable matching, no pair can prefer each other to ')
+print('\tcurrent partners.')
 print("\tUnstable: m-w, m'-w', where m prefers w', and w' prefers m")
-print("\t- A perfect matching has each in one pair.")
-print("\t- Completed in at worst O(n^2) time")
-print("------")
+print('\t- A perfect matching has each in one pair.')
+print('\t- Completed in at worst O(n^2) time')
+print('------')
 
 '''
 -------------------------------
@@ -113,29 +113,29 @@ def pref_helper(str, i, content, arr):
 class test_case:
 	def __init__(self, i, content):
 		self.man_preference = []
-		i = pref_helper("Women", i, content, self.man_preference)
+		i = pref_helper('Women', i, content, self.man_preference)
 		self.woman_preference = []
-		i = pref_helper("Expected Results", i, content, self.woman_preference)
+		i = pref_helper('Expected Results', i, content, self.woman_preference)
 		i += 1
 		self.woman_results = []
 		self.woman_results = [int(j) for j in content[i].split()]
-		#i = builder_helper("Men", i, content, self.woman_results)
+		#i = builder_helper('Men', i, content, self.woman_results)
 		self.pairs = len(self.woman_results)
 	def __str__(self):
-		result = "Men\n" + str(self.man_preference)
-		result += "\nWomen\n" + str(self.woman_preference)
-		result += "\nExpected Results\n" + str(self.woman_results)
+		result = 'Men\n' + str(self.man_preference)
+		result += '\nWomen\n' + str(self.woman_preference)
+		result += '\nExpected Results\n' + str(self.woman_results)
 		return result
 
 # build a collection of test cases indicated by a file
 def build_test_cases(file_name):
 	test_cases = []
-	f = open(file_name, "r")
+	f = open(file_name, 'r')
 	content = []
 	content = f.read().splitlines()
 	i = 0
 	while i < len(content):
-		if(content[i].startswith("Men")):
+		if(content[i].startswith('Men')):
 			# start of a case
 			t = test_case(i, content)
 			test_cases.append(t)
@@ -149,24 +149,24 @@ def build_test_cases(file_name):
 def main(argv):
 	test_cases = []
 	if len(argv) < 2:
-		print("Running default test cases file")
+		print('Running default test cases file')
 		# TODO remove hard coding
-		test_cases = build_test_cases("stable-matching-test-cases.txt");
+		test_cases = build_test_cases('stable-matching-test-cases.txt');
 	else:
 		for arg in argv:
-			print("Running on file ", arg)
+			print('Running on file ', arg)
 			test_cases += build_test_cases(file_name)
 
 	woman_status = []
 	for t in test_cases:
 		woman_status = match_stable(t.pairs, t.man_preference, t.woman_preference)
-		print("Result: ")
+		print('Result: ')
 		print(woman_status)
-		print("Expected: ")
+		print('Expected: ')
 		print(t.woman_results)
 		for w in range(t.pairs):
 			assert woman_status[w] == t.woman_results[w]
 
-if __name__ == "__main__":
+if __name__ == '__main__':
 	main(sys.argv[1:])
 
