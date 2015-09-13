@@ -1,0 +1,30 @@
+Search engine uses web crawler to visit pages. It stores a few keywords in a database,
+	and follows links to other web pages. Crawler wasting time visiting same pages,
+	so hash table stores visited URLs. Crawler only visits URL if not visited already.
+
+The crawler is now running out of memory when running for long time. How trim down space
+	used by hash table?
+
+Solution:
+- urls share a lot of common stems: www prefix, pages at the same domain, etc
+- optimize to store only one copy of these shared prefixes
+- Trie instead of hash table
+	- store urls and share common prefixes
+	- lookup O(m), where m = len(URL)
+	- insert O(m)
+	- no collisons, unlike hash table
+- Downsides of Trie
+	- doesn't have O(1) lookup
+	- doesn't have memory locality for a single URL- each character may be scattered across disk
+	- may be more memory intensive, since need to align allocated memory for each Trie node
+
+For URLs of length n, there are 26^n possible. To store n-length url,
+	will store n * 26^n characters
+To store URLs of len(URL) <= n, storing 
+	n * 26^n + (n-1) * 26^(n-1) + ... + 2 * 26^2 + 26
+which gives storing O(n * 26^n) characters
+
+When storing in a Trie, the first level has 26 nodes. If have only 5-character URLs,
+	there are 5 levels. This gives O(26^5) characters stored in the Trie, if handling
+	all 5 character URLs.
+Therefore, the size of a Trie for URLs of length n or shorter is O(26^n).
